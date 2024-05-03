@@ -1,20 +1,7 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: sample-deployment-service
-spec:
-  selector:
-    app: nginx
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-  type: LoadBalancer
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-deployment
+  name: sample-deployment # Change this name as needed
   labels:
     app: nginx
 spec:
@@ -28,7 +15,24 @@ spec:
         app: nginx
     spec:
       containers:
-        - name: nginx
-          image: nginx:latest
-          ports:
-            - containerPort: 80
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+
+---
+
+# Service definition for the deployment with LoadBalancer type
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-deployment-service # Change this name as needed
+spec:
+  selector:
+    app: nginx
+  type: LoadBalancer # This is the key change for external access
+  ports:
+  - protocol: TCP
+    port: 80 # Service port (can be different from container port)
+    targetPort: 80 # Target port of the pods (matches container port)
