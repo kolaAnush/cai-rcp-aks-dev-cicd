@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-deployment # Change this name as needed
+  name: updated-sample-deployment # Change this name as needed
   labels:
     app: nginx
 spec:
